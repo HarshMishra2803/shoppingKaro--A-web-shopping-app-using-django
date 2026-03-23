@@ -3,7 +3,7 @@
 
 {% block extra_css %}
 .hero-wrap {
-    padding: 2rem 0 1rem;
+    padding: 2rem 0 1.25rem;
 }
 
 .hero-panel {
@@ -12,11 +12,11 @@
     padding: clamp(2rem, 5vw, 4rem);
     border-radius: 36px;
     background:
-        radial-gradient(circle at top right, rgba(255, 211, 77, 0.2), transparent 24%),
-        radial-gradient(circle at left center, rgba(31, 111, 120, 0.16), transparent 28%),
-        linear-gradient(135deg, #20120e 0%, #42231b 46%, #6f2f1f 100%);
+        radial-gradient(circle at 82% 18%, rgba(255, 207, 90, 0.24), transparent 22%),
+        radial-gradient(circle at 12% 22%, rgba(19, 199, 183, 0.18), transparent 28%),
+        linear-gradient(135deg, #160f15 0%, #3b1d2f 38%, #7a3225 100%);
     color: #fff7f1;
-    box-shadow: 0 30px 60px rgba(73, 30, 18, 0.22);
+    box-shadow: 0 34px 64px rgba(73, 30, 18, 0.22);
 }
 
 .hero-panel.modular-section::before {
@@ -55,12 +55,20 @@
     line-height: 0.96;
     letter-spacing: -0.06em;
     margin: 1rem 0;
+    max-width: 9ch;
 }
 
 .hero-copy {
     max-width: 580px;
     font-size: 1.05rem;
     color: rgba(255, 247, 241, 0.78);
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
 }
 
 .hero-metrics {
@@ -80,6 +88,7 @@
 .hero-showcase {
     position: relative;
     min-height: 100%;
+    perspective: 1400px;
 }
 
 .showcase-card {
@@ -90,24 +99,140 @@
     padding: 1.4rem;
 }
 
+.showcase-spotlight {
+    position: relative;
+    padding: 1.35rem;
+    min-height: 220px;
+}
+
+.showcase-spotlight::before {
+    content: "";
+    position: absolute;
+    inset: -18% auto auto 62%;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 207, 90, 0.34), transparent 68%);
+    filter: blur(8px);
+}
+
 .showcase-grid {
     display: grid;
     gap: 1rem;
 }
 
-.showcase-grid .glass-badge {
-    display: inline-flex;
-    gap: 0.6rem;
-    align-items: center;
-    width: fit-content;
-    padding: 0.65rem 0.9rem;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.12);
+.orbit-stack {
+    position: absolute;
+    inset: auto -30px -25px auto;
+    display: grid;
+    gap: 0.85rem;
+    width: min(220px, 52vw);
+}
+
+.orbit-chip {
+    padding: 0.95rem 1rem;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 18px 30px rgba(11, 7, 15, 0.18);
+}
+
+.promo-band {
+    margin-top: 1.5rem;
+}
+
+.section-lead {
+    max-width: 580px;
 }
 
 .category-tile {
     padding: 1.6rem 1.1rem;
     text-align: center;
+}
+
+.category-orbit {
+    position: relative;
+    overflow: hidden;
+}
+
+.category-orbit::before {
+    content: "";
+    position: absolute;
+    inset: auto auto -40px -28px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 95, 69, 0.16), transparent 72%);
+    filter: blur(4px);
+}
+
+.product-highlight {
+    position: absolute;
+    inset: 14px 14px auto auto;
+    z-index: 2;
+}
+
+.launch-strip {
+    position: relative;
+    overflow: hidden;
+    padding: 1rem;
+    border-radius: 30px;
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(255, 245, 236, 0.74));
+}
+
+.story-grid {
+    display: grid;
+    grid-template-columns: 1.25fr 0.95fr;
+    gap: 1.25rem;
+}
+
+.story-panel {
+    position: relative;
+    overflow: hidden;
+    padding: 1.8rem;
+    min-height: 100%;
+}
+
+.story-panel--dark {
+    background:
+        radial-gradient(circle at top right, rgba(255, 207, 90, 0.2), transparent 24%),
+        linear-gradient(135deg, #1b1110, #352522);
+    color: #fff9f4;
+}
+
+.story-panel--dark .section-copy,
+.story-panel--dark .text-muted {
+    color: rgba(255, 244, 236, 0.72) !important;
+}
+
+.story-panel--warm {
+    background:
+        radial-gradient(circle at top right, rgba(19, 199, 183, 0.14), transparent 30%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(255, 249, 241, 0.72));
+}
+
+.benefit-list {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.benefit-row {
+    display: flex;
+    align-items: center;
+    gap: 0.95rem;
+}
+
+.benefit-icon {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(255, 95, 69, 0.14), rgba(19, 199, 183, 0.14));
+    color: var(--primary);
 }
 
 .category-icon {
@@ -144,6 +269,16 @@
     .feature-strip {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+
+    .story-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .orbit-stack {
+        position: static;
+        width: 100%;
+        margin-top: 1rem;
+    }
 }
 
 @media (max-width: 767.98px) {
@@ -159,15 +294,16 @@
     <div class="container">
         <div class="hero-panel modular-section section-grid shine-card" data-reveal>
             <div class="row align-items-center g-5">
-                <div class="col-lg-7">
+                <div class="col-lg-7" data-reveal>
                     <span class="eyebrow"><i class="fas fa-bolt"></i> Everyday Deals, Better Style</span>
-                    <h1 class="hero-title">Shopping Karo and make every cart feel worth it.</h1>
-                    <p class="hero-copy">A brighter storefront for fashion, books, gadgets, and daily-use picks with cleaner browsing, richer cards, and smoother motion across the whole project.</p>
-                    <div class="d-flex flex-wrap gap-3 mt-4">
-                        <a href="{% url 'store:product_list' %}" class="btn btn-primary btn-lg">Start Shopping</a>
+                    <h1 class="hero-title">Shopping Karo with a louder, more premium visual vibe.</h1>
+                    <p class="hero-copy">The storefront now feels more editorial and energetic with cinematic gradients, slider-inspired motion, magnetic buttons, and richer product presentation throughout the shopping journey.</p>
+                    <div class="hero-actions">
+                        <a href="{% url 'store:product_list' %}" class="btn btn-primary btn-lg magnetic-btn">Start Shopping</a>
                         {% if not user.is_authenticated %}
-                        <a href="{% url 'accounts:register' %}" class="btn btn-outline-light btn-lg">Create Account</a>
+                        <a href="{% url 'accounts:register' %}" class="btn btn-outline-light btn-lg magnetic-btn">Create Account</a>
                         {% endif %}
+                        <span class="glass-badge drift-x"><i class="fas fa-play"></i> Framer-style motion feel</span>
                     </div>
                     <div class="hero-metrics">
                         <div class="hero-stat">
@@ -175,18 +311,18 @@
                             <div class="small text-white-50">support for every order</div>
                         </div>
                         <div class="hero-stat">
-                            <div class="fs-3 fw-bold">Fast</div>
-                            <div class="small text-white-50">checkout and delivery flow</div>
+                            <div class="fs-3 fw-bold">Fluid</div>
+                            <div class="small text-white-50">motion-led shopping flow</div>
                         </div>
                         <div class="hero-stat">
-                            <div class="fs-3 fw-bold">Fresh</div>
-                            <div class="small text-white-50">deals added regularly</div>
+                            <div class="fs-3 fw-bold">Bold</div>
+                            <div class="small text-white-50">cards and sections that stand out</div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-5">
+                <div class="col-lg-5 reveal-right" data-reveal>
                     <div class="hero-showcase floating-accent">
-                        <div class="showcase-card shine-card interactive-lift mb-3" data-cursor="hover">
+                        <div class="showcase-card showcase-spotlight shine-card interactive-lift tilt-card mb-3" data-cursor="hover" data-tilt>
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <span class="glass-badge"><i class="fas fa-fire"></i> Trending picks</span>
                                 <span class="discount-badge">Limited offers</span>
@@ -196,8 +332,18 @@
                                 <div class="glass-badge"><i class="fas fa-book-open"></i> Must-read books</div>
                                 <div class="glass-badge"><i class="fas fa-headphones"></i> Smart gadgets</div>
                             </div>
+                            <div class="orbit-stack">
+                                <div class="orbit-chip floating-accent">
+                                    <div class="small text-white-50">Spotlight collection</div>
+                                    <div class="fw-bold">Motion-first product stories</div>
+                                </div>
+                                <div class="orbit-chip" style="animation: floatCard 7s ease-in-out infinite;">
+                                    <div class="small text-white-50">Visual energy</div>
+                                    <div class="fw-bold">Glass, glow, depth, and movement</div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="showcase-card shine-card interactive-lift" data-cursor="hover">
+                        <div class="showcase-card shine-card interactive-lift tilt-card" data-cursor="hover" data-tilt>
                             <div class="d-flex align-items-center justify-content-between">
                                 <div>
                                     <div class="small text-white-50">This week</div>
@@ -207,6 +353,23 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="promo-band" data-reveal>
+            <div class="marquee-shell">
+                <div class="marquee-track">
+                    <span class="marquee-chip"><i class="fas fa-sparkles text-primary"></i> Cinematic storefront styling</span>
+                    <span class="marquee-chip"><i class="fas fa-layer-group text-primary"></i> Floating glass sections</span>
+                    <span class="marquee-chip"><i class="fas fa-arrows-left-right-to-line text-primary"></i> Slider-like motion rhythm</span>
+                    <span class="marquee-chip"><i class="fas fa-bolt text-primary"></i> Magnetic CTA hover</span>
+                    <span class="marquee-chip"><i class="fas fa-star text-primary"></i> Richer product presentation</span>
+                    <span class="marquee-chip"><i class="fas fa-sparkles text-primary"></i> Cinematic storefront styling</span>
+                    <span class="marquee-chip"><i class="fas fa-layer-group text-primary"></i> Floating glass sections</span>
+                    <span class="marquee-chip"><i class="fas fa-arrows-left-right-to-line text-primary"></i> Slider-like motion rhythm</span>
+                    <span class="marquee-chip"><i class="fas fa-bolt text-primary"></i> Magnetic CTA hover</span>
+                    <span class="marquee-chip"><i class="fas fa-star text-primary"></i> Richer product presentation</span>
                 </div>
             </div>
         </div>
@@ -221,13 +384,13 @@
                 <span class="eyebrow"><i class="fas fa-layer-group"></i> Categories</span>
                 <h2 class="section-title mb-0">Browse the store your way</h2>
             </div>
-            <p class="section-copy mb-0">Quick entry points to the product types your shoppers care about most.</p>
+            <p class="section-copy section-lead mb-0">Quick entry points now styled like mini launch cards so browsing starts with more energy and clearer visual separation.</p>
         </div>
         <div class="row g-4">
             {% for category in categories %}
             <div class="col-6 col-md-4 col-lg-2" data-reveal>
                 <a href="{% url 'store:product_list' %}?category={{ category.slug }}" class="text-decoration-none">
-                    <div class="card category-tile h-100 interactive-lift shine-card" data-cursor="hover">
+                    <div class="card category-tile category-orbit h-100 interactive-lift shine-card tilt-card" data-cursor="hover" data-tilt>
                         <div class="category-icon"><i class="fas fa-sparkles"></i></div>
                         <h6 class="fw-bold mb-1">{{ category.name }}</h6>
                         <small class="text-muted">{{ category.products.count }} items</small>
@@ -252,7 +415,10 @@
         <div class="row g-4">
             {% for product in featured_products %}
             <div class="col-6 col-md-4 col-lg-3" data-reveal>
-                <div class="card product-card h-100 interactive-lift shine-card" data-cursor="hover">
+                <div class="card product-card h-100 interactive-lift shine-card tilt-card" data-cursor="hover" data-tilt>
+                    <div class="product-highlight">
+                        <span class="discount-badge">Featured</span>
+                    </div>
                     <a href="{% url 'store:product_detail' product.slug %}">
                         {% if product.image %}
                         <img src="{{ product.image.url }}" class="product-img" alt="{{ product.name }}">
@@ -298,17 +464,53 @@
 
 <section class="py-5">
     <div class="container">
+        <div class="launch-strip modular-section section-grid mb-5" data-reveal>
+            <div class="story-grid">
+                <div class="story-panel story-panel--dark surface-panel interactive-lift reveal-left" data-reveal>
+                    <span class="eyebrow"><i class="fas fa-wand-magic-sparkles"></i> Visual Refresh</span>
+                    <h2 class="section-title mt-3">More drama, more depth, more movement.</h2>
+                    <p class="section-copy mb-0">This landing page now mixes bold gradients, layered glow, and motion-first cards so the storefront feels closer to a modern product showcase than a basic template.</p>
+                </div>
+                <div class="story-panel story-panel--warm surface-panel interactive-lift reveal-right" data-reveal>
+                    <span class="eyebrow"><i class="fas fa-chart-line"></i> Better Flow</span>
+                    <div class="benefit-list">
+                        <div class="benefit-row">
+                            <span class="benefit-icon"><i class="fas fa-clapperboard"></i></span>
+                            <div>
+                                <div class="fw-bold">Slider-inspired rhythm</div>
+                                <div class="text-muted small">Scrolling sections feel more kinetic and editorial.</div>
+                            </div>
+                        </div>
+                        <div class="benefit-row">
+                            <span class="benefit-icon"><i class="fas fa-hand-pointer"></i></span>
+                            <div>
+                                <div class="fw-bold">Interactive hover feedback</div>
+                                <div class="text-muted small">Buttons and cards now react with more character.</div>
+                            </div>
+                        </div>
+                        <div class="benefit-row">
+                            <span class="benefit-icon"><i class="fas fa-eye"></i></span>
+                            <div>
+                                <div class="fw-bold">Stronger visual hierarchy</div>
+                                <div class="text-muted small">Offers, sections, and products stand out faster.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="d-flex justify-content-between align-items-end flex-wrap gap-3 mb-4" data-reveal>
             <div>
                 <span class="eyebrow"><i class="fas fa-clock"></i> Latest Arrivals</span>
                 <h2 class="section-title mb-0">New items, same smoother experience</h2>
             </div>
-            <a href="{% url 'store:product_list' %}" class="btn btn-outline-primary">View All Products</a>
+            <a href="{% url 'store:product_list' %}" class="btn btn-outline-primary magnetic-btn">View All Products</a>
         </div>
         <div class="row g-4">
             {% for product in latest_products %}
             <div class="col-6 col-md-4 col-lg-3" data-reveal>
-                <div class="card product-card h-100 interactive-lift shine-card" data-cursor="hover">
+                <div class="card product-card h-100 interactive-lift shine-card tilt-card" data-cursor="hover" data-tilt>
                     <a href="{% url 'store:product_detail' product.slug %}">
                         {% if product.image %}
                         <img src="{{ product.image.url }}" class="product-img" alt="{{ product.name }}">

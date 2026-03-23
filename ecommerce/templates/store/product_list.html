@@ -10,7 +10,9 @@
     padding: 2rem;
     margin-bottom: 1.75rem;
     border-radius: 30px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.82), rgba(255,247,240,0.9));
+    background:
+        radial-gradient(circle at top right, rgba(255, 207, 90, 0.18), transparent 24%),
+        linear-gradient(135deg, rgba(255,255,255,0.82), rgba(255,247,240,0.9));
 }
 
 .filter-card {
@@ -28,6 +30,22 @@
 .catalog-stack {
     display: grid;
     gap: 1.75rem;
+}
+
+.catalog-ribbon {
+    padding: 1rem;
+    border-radius: 24px;
+}
+
+.trend-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.7rem 0.95rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.86);
+    font-weight: 800;
+    box-shadow: 0 12px 24px rgba(84, 49, 30, 0.08);
 }
 {% endblock %}
 
@@ -52,9 +70,22 @@
             </div>
         </div>
 
+        <div class="catalog-ribbon marquee-shell mb-4" data-reveal>
+            <div class="marquee-track">
+                <span class="trend-chip"><i class="fas fa-filter text-primary"></i> Sticky filters</span>
+                <span class="trend-chip"><i class="fas fa-sort text-primary"></i> Cleaner sorting</span>
+                <span class="trend-chip"><i class="fas fa-cubes text-primary"></i> Elevated product cards</span>
+                <span class="trend-chip"><i class="fas fa-eye text-primary"></i> Faster visual scanning</span>
+                <span class="trend-chip"><i class="fas fa-filter text-primary"></i> Sticky filters</span>
+                <span class="trend-chip"><i class="fas fa-sort text-primary"></i> Cleaner sorting</span>
+                <span class="trend-chip"><i class="fas fa-cubes text-primary"></i> Elevated product cards</span>
+                <span class="trend-chip"><i class="fas fa-eye text-primary"></i> Faster visual scanning</span>
+            </div>
+        </div>
+
         <div class="row g-4">
             <div class="col-lg-3" data-reveal>
-                <div class="card p-4 filter-card interactive-lift shine-card" data-cursor="hover">
+                <div class="card p-4 filter-card interactive-lift shine-card tilt-card" data-cursor="hover" data-tilt>
                     <h5 class="fw-bold mb-3"><i class="fas fa-sliders me-2 text-primary"></i>Filters</h5>
                     <form method="get">
                         {% if request.GET.q %}<input type="hidden" name="q" value="{{ request.GET.q }}">{% endif %}
@@ -83,7 +114,7 @@
                             </div>
                         </div>
                         {% if selected_category %}<input type="hidden" name="category" value="{{ selected_category.slug }}">{% endif %}
-                        <button type="submit" class="btn btn-primary w-100 mt-3">Apply Filters</button>
+                        <button type="submit" class="btn btn-primary w-100 mt-3 magnetic-btn">Apply Filters</button>
                         <a href="{% url 'store:product_list' %}" class="btn btn-outline-secondary w-100 mt-2">Clear All</a>
                     </form>
                 </div>
@@ -113,7 +144,7 @@
                     <div class="row g-4">
                         {% for product in products %}
                         <div class="col-6 col-xl-4" data-reveal>
-                            <div class="card product-card h-100 interactive-lift shine-card" data-cursor="hover">
+                            <div class="card product-card h-100 interactive-lift shine-card tilt-card" data-cursor="hover" data-tilt>
                                 <a href="{% url 'store:product_detail' product.slug %}">
                                     {% if product.image %}
                                     <img src="{{ product.image.url }}" class="product-img" alt="{{ product.name }}">
@@ -140,7 +171,7 @@
                                         <form action="{% url 'cart:add' product.id %}" method="post">
                                             {% csrf_token %}
                                             <input type="hidden" name="quantity" value="1">
-                                            <button class="btn btn-primary w-100">
+                                            <button class="btn btn-primary w-100 magnetic-btn">
                                                 <i class="fas fa-cart-plus me-2"></i>Add to Cart
                                             </button>
                                         </form>

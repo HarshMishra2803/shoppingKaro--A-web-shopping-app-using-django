@@ -26,7 +26,9 @@
 .purchase-box {
     padding: 1.5rem;
     border-radius: 24px;
-    background: linear-gradient(135deg, rgba(232, 93, 63, 0.08), rgba(31, 111, 120, 0.08));
+    background:
+        radial-gradient(circle at top right, rgba(255, 207, 90, 0.18), transparent 24%),
+        linear-gradient(135deg, rgba(232, 93, 63, 0.08), rgba(31, 111, 120, 0.08));
 }
 
 .thumb-image {
@@ -42,6 +44,14 @@
     box-shadow: var(--shadow-soft);
     border-color: rgba(232, 93, 63, 0.32) !important;
 }
+
+.detail-marquee {
+    margin-bottom: 1.5rem;
+}
+
+.detail-stat {
+    padding: 1rem 1.1rem;
+}
 {% endblock %}
 
 {% block content %}
@@ -56,9 +66,22 @@
             </ol>
         </nav>
 
+        <div class="detail-marquee marquee-shell" data-reveal>
+            <div class="marquee-track">
+                <span class="marquee-chip"><i class="fas fa-shield-heart text-primary"></i> Secure checkout</span>
+                <span class="marquee-chip"><i class="fas fa-truck-fast text-primary"></i> Fast delivery available</span>
+                <span class="marquee-chip"><i class="fas fa-rotate-left text-primary"></i> Easy return support</span>
+                <span class="marquee-chip"><i class="fas fa-star text-primary"></i> Product-first presentation</span>
+                <span class="marquee-chip"><i class="fas fa-shield-heart text-primary"></i> Secure checkout</span>
+                <span class="marquee-chip"><i class="fas fa-truck-fast text-primary"></i> Fast delivery available</span>
+                <span class="marquee-chip"><i class="fas fa-rotate-left text-primary"></i> Easy return support</span>
+                <span class="marquee-chip"><i class="fas fa-star text-primary"></i> Product-first presentation</span>
+            </div>
+        </div>
+
         <div class="row g-5 align-items-start">
             <div class="col-lg-5" data-reveal>
-                <div class="card detail-card shine-card interactive-lift" data-cursor="hover">
+                <div class="card detail-card shine-card interactive-lift tilt-card" data-cursor="hover" data-tilt>
                     {% if product.image %}
                     <img src="{{ product.image.url }}" class="detail-image" alt="{{ product.name }}">
                     {% else %}
@@ -95,6 +118,27 @@
                 </div>
 
                 <div class="purchase-box surface-panel mb-4">
+                    <div class="row g-3 mb-3">
+                        <div class="col-sm-4">
+                            <div class="mini-stat detail-stat">
+                                <div class="small text-muted">Category</div>
+                                <div class="fw-bold">{{ product.category.name }}</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="mini-stat detail-stat">
+                                <div class="small text-muted">Rating</div>
+                                <div class="fw-bold">{{ avg_rating|default:0 }}/5</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="mini-stat detail-stat">
+                                <div class="small text-muted">Reviews</div>
+                                <div class="fw-bold">{{ reviews.count }}</div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="d-flex flex-wrap gap-3 align-items-center mb-3">
                         {% if product.in_stock %}
                         <span class="badge bg-success fs-6"><i class="fas fa-check me-1"></i>In Stock ({{ product.stock }} available)</span>
@@ -115,7 +159,7 @@
                             <input type="number" name="quantity" id="qty" value="1" min="1" max="{{ product.stock }}" class="form-control text-center">
                             <button type="button" class="btn btn-outline-secondary" onclick="changeQty(1)">+</button>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-lg px-4">
+                        <button type="submit" class="btn btn-primary btn-lg px-4 magnetic-btn">
                             <i class="fas fa-cart-plus me-2"></i>Add to Cart
                         </button>
                     </form>
@@ -132,7 +176,7 @@
                     <h4 class="fw-bold mb-4">Customer Reviews</h4>
 
                     {% if user.is_authenticated and not user_review %}
-                    <div class="card p-4 mb-4 interactive-lift" data-cursor="hover">
+                    <div class="card p-4 mb-4 interactive-lift tilt-card" data-cursor="hover" data-tilt>
                         <h6 class="fw-bold">Write a Review</h6>
                         <form action="{% url 'store:add_review' product.slug %}" method="post">
                             {% csrf_token %}
@@ -151,7 +195,7 @@
                                 <label class="form-label">Comment</label>
                                 <textarea name="comment" class="form-control" rows="3" placeholder="Share your experience..." required></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit Review</button>
+                            <button type="submit" class="btn btn-primary magnetic-btn">Submit Review</button>
                         </form>
                     </div>
                     {% elif not user.is_authenticated %}
@@ -161,7 +205,7 @@
                     {% endif %}
 
                     {% for review in reviews %}
-                    <div class="card p-4 mb-3 interactive-lift" data-cursor="hover">
+                    <div class="card p-4 mb-3 interactive-lift tilt-card" data-cursor="hover" data-tilt>
                         <div class="d-flex justify-content-between flex-wrap gap-2">
                             <strong>{{ review.user.get_full_name|default:review.user.username }}</strong>
                             <small class="text-muted">{{ review.created_at|date:"M d, Y" }}</small>
@@ -180,7 +224,7 @@
             </div>
 
             <div class="col-lg-4" data-reveal>
-                <div class="card info-card interactive-lift shine-card" data-cursor="hover">
+                <div class="card info-card interactive-lift shine-card tilt-card" data-cursor="hover" data-tilt>
                     <h5 class="fw-bold mb-3">Why shoppers like this</h5>
                     <div class="mini-stat mb-3">
                         <div class="small text-muted">Category</div>
@@ -209,7 +253,7 @@
             <div class="row g-4">
                 {% for p in related_products %}
                 <div class="col-6 col-md-4 col-lg-3" data-reveal>
-                    <div class="card product-card h-100 interactive-lift shine-card" data-cursor="hover">
+                    <div class="card product-card h-100 interactive-lift shine-card tilt-card" data-cursor="hover" data-tilt>
                         <a href="{% url 'store:product_detail' p.slug %}">
                             {% if p.image %}
                             <img src="{{ p.image.url }}" class="product-img" alt="{{ p.name }}">
