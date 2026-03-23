@@ -1,0 +1,380 @@
+{% extends 'base.html' %}
+{% block title %}Shopping Karo - Home{% endblock %}
+
+{% block extra_css %}
+.hero-wrap {
+    padding: 2rem 0 1rem;
+}
+
+.hero-panel {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(2rem, 5vw, 4rem);
+    border-radius: 36px;
+    background:
+        radial-gradient(circle at top right, rgba(255, 211, 77, 0.2), transparent 24%),
+        radial-gradient(circle at left center, rgba(31, 111, 120, 0.16), transparent 28%),
+        linear-gradient(135deg, #20120e 0%, #42231b 46%, #6f2f1f 100%);
+    color: #fff7f1;
+    box-shadow: 0 30px 60px rgba(73, 30, 18, 0.22);
+}
+
+.hero-panel.modular-section::before {
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0)),
+        linear-gradient(0deg, transparent, transparent);
+}
+
+.hero-panel::before,
+.hero-panel::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    animation: floatCard 8s ease-in-out infinite;
+}
+
+.hero-panel::before {
+    width: 220px;
+    height: 220px;
+    right: -70px;
+    top: -60px;
+}
+
+.hero-panel::after {
+    width: 140px;
+    height: 140px;
+    left: -30px;
+    bottom: -30px;
+    animation-delay: -3s;
+}
+
+.hero-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.8rem, 7vw, 5rem);
+    line-height: 0.96;
+    letter-spacing: -0.06em;
+    margin: 1rem 0;
+}
+
+.hero-copy {
+    max-width: 580px;
+    font-size: 1.05rem;
+    color: rgba(255, 247, 241, 0.78);
+}
+
+.hero-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.hero-stat {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 22px;
+    padding: 1rem 1.1rem;
+}
+
+.hero-showcase {
+    position: relative;
+    min-height: 100%;
+}
+
+.showcase-card {
+    background: rgba(255, 252, 248, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(14px);
+    border-radius: 28px;
+    padding: 1.4rem;
+}
+
+.showcase-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.showcase-grid .glass-badge {
+    display: inline-flex;
+    gap: 0.6rem;
+    align-items: center;
+    width: fit-content;
+    padding: 0.65rem 0.9rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.category-tile {
+    padding: 1.6rem 1.1rem;
+    text-align: center;
+}
+
+.category-icon {
+    width: 68px;
+    height: 68px;
+    margin: 0 auto 1rem;
+    display: grid;
+    place-items: center;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(232, 93, 63, 0.14), rgba(31, 111, 120, 0.14));
+    color: var(--primary);
+    font-size: 1.5rem;
+}
+
+.feature-strip {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.feature-box {
+    padding: 1.4rem;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.66);
+    border: 1px solid rgba(95, 67, 50, 0.1);
+}
+
+.feature-box p {
+    margin-bottom: 0;
+}
+
+@media (max-width: 991.98px) {
+    .hero-metrics,
+    .feature-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 767.98px) {
+    .hero-metrics,
+    .feature-strip {
+        grid-template-columns: 1fr;
+    }
+}
+{% endblock %}
+
+{% block content %}
+<section class="hero-wrap">
+    <div class="container">
+        <div class="hero-panel modular-section section-grid shine-card" data-reveal>
+            <div class="row align-items-center g-5">
+                <div class="col-lg-7">
+                    <span class="eyebrow"><i class="fas fa-bolt"></i> Everyday Deals, Better Style</span>
+                    <h1 class="hero-title">Shopping Karo and make every cart feel worth it.</h1>
+                    <p class="hero-copy">A brighter storefront for fashion, books, gadgets, and daily-use picks with cleaner browsing, richer cards, and smoother motion across the whole project.</p>
+                    <div class="d-flex flex-wrap gap-3 mt-4">
+                        <a href="{% url 'store:product_list' %}" class="btn btn-primary btn-lg">Start Shopping</a>
+                        {% if not user.is_authenticated %}
+                        <a href="{% url 'accounts:register' %}" class="btn btn-outline-light btn-lg">Create Account</a>
+                        {% endif %}
+                    </div>
+                    <div class="hero-metrics">
+                        <div class="hero-stat">
+                            <div class="fs-3 fw-bold">24/7</div>
+                            <div class="small text-white-50">support for every order</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="fs-3 fw-bold">Fast</div>
+                            <div class="small text-white-50">checkout and delivery flow</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="fs-3 fw-bold">Fresh</div>
+                            <div class="small text-white-50">deals added regularly</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="hero-showcase floating-accent">
+                        <div class="showcase-card shine-card interactive-lift mb-3" data-cursor="hover">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="glass-badge"><i class="fas fa-fire"></i> Trending picks</span>
+                                <span class="discount-badge">Limited offers</span>
+                            </div>
+                            <div class="showcase-grid">
+                                <div class="glass-badge"><i class="fas fa-shirt"></i> Fashion refresh</div>
+                                <div class="glass-badge"><i class="fas fa-book-open"></i> Must-read books</div>
+                                <div class="glass-badge"><i class="fas fa-headphones"></i> Smart gadgets</div>
+                            </div>
+                        </div>
+                        <div class="showcase-card shine-card interactive-lift" data-cursor="hover">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <div class="small text-white-50">This week</div>
+                                    <div class="fs-4 fw-bold">Up to 40% off</div>
+                                </div>
+                                <i class="fas fa-bag-shopping fa-2x pulse-accent"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% if categories %}
+<section class="py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-end flex-wrap gap-3 mb-4" data-reveal>
+            <div>
+                <span class="eyebrow"><i class="fas fa-layer-group"></i> Categories</span>
+                <h2 class="section-title mb-0">Browse the store your way</h2>
+            </div>
+            <p class="section-copy mb-0">Quick entry points to the product types your shoppers care about most.</p>
+        </div>
+        <div class="row g-4">
+            {% for category in categories %}
+            <div class="col-6 col-md-4 col-lg-2" data-reveal>
+                <a href="{% url 'store:product_list' %}?category={{ category.slug }}" class="text-decoration-none">
+                    <div class="card category-tile h-100 interactive-lift shine-card" data-cursor="hover">
+                        <div class="category-icon"><i class="fas fa-sparkles"></i></div>
+                        <h6 class="fw-bold mb-1">{{ category.name }}</h6>
+                        <small class="text-muted">{{ category.products.count }} items</small>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if featured_products %}
+<section class="py-4">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-end flex-wrap gap-3 mb-4" data-reveal>
+            <div>
+                <span class="eyebrow"><i class="fas fa-star"></i> Featured</span>
+                <h2 class="section-title mb-0">Top picks with stronger presentation</h2>
+            </div>
+        </div>
+        <div class="row g-4">
+            {% for product in featured_products %}
+            <div class="col-6 col-md-4 col-lg-3" data-reveal>
+                <div class="card product-card h-100 interactive-lift shine-card" data-cursor="hover">
+                    <a href="{% url 'store:product_detail' product.slug %}">
+                        {% if product.image %}
+                        <img src="{{ product.image.url }}" class="product-img" alt="{{ product.name }}">
+                        {% else %}
+                        <div class="product-img d-flex align-items-center justify-content-center">
+                            <i class="fas fa-image fa-3x text-muted"></i>
+                        </div>
+                        {% endif %}
+                    </a>
+                    <div class="card-body d-flex flex-column p-4">
+                        <span class="pill-chip mb-3">{{ product.category.name }}</span>
+                        <h6 class="fw-bold fs-5">
+                            <a href="{% url 'store:product_detail' product.slug %}" class="text-decoration-none">{{ product.name }}</a>
+                        </h6>
+                        <div class="mt-auto">
+                            <div class="d-flex align-items-center gap-2 mb-3 flex-wrap">
+                                <span class="price">₹{{ product.final_price }}</span>
+                                {% if product.discount_price %}
+                                <span class="old-price">₹{{ product.price }}</span>
+                                <span class="discount-badge">{{ product.discount_percent }}% off</span>
+                                {% endif %}
+                            </div>
+                            {% if product.in_stock %}
+                            <form action="{% url 'cart:add' product.id %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="quantity" value="1">
+                                <button class="btn btn-primary w-100">
+                                    <i class="fas fa-cart-plus me-2"></i>Add to Cart
+                                </button>
+                            </form>
+                            {% else %}
+                            <button class="btn btn-secondary w-100" disabled>Out of Stock</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<section class="py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-end flex-wrap gap-3 mb-4" data-reveal>
+            <div>
+                <span class="eyebrow"><i class="fas fa-clock"></i> Latest Arrivals</span>
+                <h2 class="section-title mb-0">New items, same smoother experience</h2>
+            </div>
+            <a href="{% url 'store:product_list' %}" class="btn btn-outline-primary">View All Products</a>
+        </div>
+        <div class="row g-4">
+            {% for product in latest_products %}
+            <div class="col-6 col-md-4 col-lg-3" data-reveal>
+                <div class="card product-card h-100 interactive-lift shine-card" data-cursor="hover">
+                    <a href="{% url 'store:product_detail' product.slug %}">
+                        {% if product.image %}
+                        <img src="{{ product.image.url }}" class="product-img" alt="{{ product.name }}">
+                        {% else %}
+                        <div class="product-img d-flex align-items-center justify-content-center">
+                            <i class="fas fa-image fa-3x text-muted"></i>
+                        </div>
+                        {% endif %}
+                    </a>
+                    <div class="card-body d-flex flex-column p-4">
+                        <small class="text-muted mb-2">{{ product.category.name }}</small>
+                        <h6 class="fw-bold fs-5">
+                            <a href="{% url 'store:product_detail' product.slug %}" class="text-decoration-none">{{ product.name }}</a>
+                        </h6>
+                        <div class="mt-auto">
+                            <div class="d-flex align-items-center gap-2 mb-3 flex-wrap">
+                                <span class="price">₹{{ product.final_price }}</span>
+                                {% if product.discount_price %}
+                                <span class="old-price">₹{{ product.price }}</span>
+                                <span class="discount-badge">{{ product.discount_percent }}% off</span>
+                                {% endif %}
+                            </div>
+                            {% if product.in_stock %}
+                            <form action="{% url 'cart:add' product.id %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="quantity" value="1">
+                                <button class="btn btn-primary w-100">
+                                    <i class="fas fa-cart-plus me-2"></i>Add to Cart
+                                </button>
+                            </form>
+                            {% else %}
+                            <button class="btn btn-secondary w-100" disabled>Out of Stock</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="pb-5">
+    <div class="container">
+        <div class="feature-strip" data-reveal>
+            <div class="feature-box surface-panel interactive-lift" data-cursor="hover">
+                <i class="fas fa-truck-fast text-primary mb-3 fs-4"></i>
+                <h6 class="fw-bold">Fast Delivery</h6>
+                <p class="text-muted mb-0">Quick doorstep drop for orders over ₹500.</p>
+            </div>
+            <div class="feature-box surface-panel interactive-lift" data-cursor="hover">
+                <i class="fas fa-rotate-left text-primary mb-3 fs-4"></i>
+                <h6 class="fw-bold">Easy Returns</h6>
+                <p class="text-muted mb-0">Stress-free 30 day return support.</p>
+            </div>
+            <div class="feature-box surface-panel interactive-lift" data-cursor="hover">
+                <i class="fas fa-shield-heart text-primary mb-3 fs-4"></i>
+                <h6 class="fw-bold">Secure Checkout</h6>
+                <p class="text-muted mb-0">Safer payments in a cleaner checkout flow.</p>
+            </div>
+            <div class="feature-box surface-panel interactive-lift" data-cursor="hover">
+                <i class="fas fa-headset text-primary mb-3 fs-4"></i>
+                <h6 class="fw-bold">Helpful Support</h6>
+                <p class="text-muted mb-0">Support that feels available when customers need it.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
